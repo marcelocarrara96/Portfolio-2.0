@@ -131,6 +131,9 @@ A API foi validada ponta a ponta com os 4 métodos do CRUD, incluindo o caso neg
 | 4 | `PUT /tasks/{taskId}` com token válido | `200 OK`, atributo atualizado |
 | 5 | `DELETE /tasks/{taskId}` com token válido | `200 OK`, item removido |
 
+<img width="1550" height="610" alt="teste-1-2-3-4-5-6-complete" src="https://github.com/user-attachments/assets/c23d3219-0a61-41d3-8277-0988c64c9de2" />
+
+
 *(prints das execuções disponíveis na pasta `/screenshots` deste repositório)*
 
 ## Lições aprendidas
