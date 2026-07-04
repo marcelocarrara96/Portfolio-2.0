@@ -31,6 +31,12 @@ Diagram CRUD Lambda:
 
 Essa é a parte que mais importa deste README. A diferença está em saber justificar cada escolha e seus trade-offs.
 
+### Região us-east-1 (Norte da Virgínia), não sa-east-1 (São Paulo)
+
+Optei por `us-east-1` por ser historicamente a região mais barata da AWS globalmente: Lambda, API Gateway e DynamoDB custam entre 30% e 50% menos ali do que em `sa-east-1`, por ser a região mais antiga e de maior escala da AWS. Para um projeto de portfólio, sem usuários reais, essa diferença de custo pesa mais do que a latência adicional (~120-180ms) de operar fora da região mais próxima.
+
+**Trade-off consciente:** em um cenário de produção real, com usuários finais no Brasil sensíveis a latência (ex: aplicações de tempo real, e-commerce, delivery), a escolha correta seria `sa-east-1` — a latência menor justificaria o custo mais alto. Para este projeto, o custo-benefício pendeu para `us-east-1`.
+
 ### API Gateway - HTTP API, não REST API
 
 Optei pelo **HTTP API** (`aws_apigatewayv2_api`) em vez do REST API (v1) por dois motivos práticos: custo (**$1,00 por milhão de requisições** contra **$3,50** do REST API) e simplicidade de configuração para autenticação via JWT/Lambda Authorizer.
