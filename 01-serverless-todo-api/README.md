@@ -87,7 +87,7 @@ Três decisões aqui, cada uma com motivo diferente:
 | `USER#<username>` | `#PROFILE#<username>` | Username, Email, CreatedAt |
 | `USER#<username>` | `TASK#<taskId>` | TaskId, Title, Status, CreatedAt |
 
-Uma única `Query` com `PK = USER#<username>` retorna o perfil e todas as tarefas daquele usuário — sem scan, sem join, sem tabela separada.
+Uma única `Query` com `PK = USER#<username>` retorna o perfil e todas as tarefas daquele usuário, sem scan, sem join, sem tabela separada.
 
 ## Segurança - o que existe e o que falta
 
