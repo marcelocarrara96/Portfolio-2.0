@@ -20,10 +20,10 @@ Uma API REST serverless e segura para um aplicativo de tarefas (to-do list), ond
 
 ## Arquitetura
 
-Architecture Serverless:
 <img width="559" height="388" alt="architecture-serverless" src="https://github.com/user-attachments/assets/d033dfe6-23cf-427e-b283-c1139dbb30b7" />  
 
 Diagram CRUD Lambda:
+
 <img width="612" height="393" alt="diagram" src="https://github.com/user-attachments/assets/7480852f-7384-4575-a145-b2f8573d2b17" />
 
 
