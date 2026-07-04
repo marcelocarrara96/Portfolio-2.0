@@ -18,7 +18,7 @@ Com isso, o projeto existe para provar domínio em três frentes que qualquer en
 
 Uma API REST serverless e segura para um aplicativo de tarefas (to-do list), onde usuários se cadastram, autenticam e gerenciam suas próprias tarefas com isolamento de dados garantido no nível da arquitetura, não apenas na lógica de negócio.
 
-## Arquitetura
+## Arquitetura (draw.io)
 
 <img width="559" height="388" alt="architecture-serverless" src="https://github.com/user-attachments/assets/d033dfe6-23cf-427e-b283-c1139dbb30b7" />
 
