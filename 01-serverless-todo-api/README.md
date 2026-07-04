@@ -142,9 +142,11 @@ A API foi validada ponta a ponta com os 4 métodos do CRUD, incluindo o caso neg
 
 ---
 
-<p align="center">
-  <img src="https://img.shields.io/badge/AWS%20Certified%20Cloud%20Practitioner-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" />
-</p>
+---
+
+<div align="center">
+
+**Marcelo Carrara** · AWS Certified Cloud Practitioner | Cloud Analyst · Paraná, Brazil
 
 <p align="center">
   <a href="https://www.linkedin.com/in/marcelocarrara96">
