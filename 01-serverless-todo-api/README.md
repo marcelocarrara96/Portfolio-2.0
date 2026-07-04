@@ -6,11 +6,17 @@
 ![Cognito](https://img.shields.io/badge/Amazon%20Cognito-DD344C?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![DynamoDB](https://img.shields.io/badge/DynamoDB-4053D6?style=for-the-badge&logo=amazon-dynamodb&logoColor=white)
 
+## Contexto do problema
+
+Imagine uma startup construindo uma aplicação de to-do list, onde usuários precisam se inscrever, fazer login e salvar suas tarefas privadas. Alguém precisa construir a API que dá vida a esse frontend e o ponto de partida já muda a forma de pensar o projeto: **não estamos construindo uma função Lambda isolada, estamos construindo uma API segura.**
+
+O entry point é o API Gateway, mas antes que qualquer requisição consiga alcançá-lo, o usuário precisa estar autenticado por isso o Amazon Cognito entra na arquitetura, cuidando de registro e login de usuários. A partir daí, o API Gateway usa um Lambda Authorizer para verificar o token do usuário *antes* de qualquer lógica de negócio ser executada. Só quando autorizado, o request chega às funções Lambda de backend (em Python), responsáveis por realizar as operações de Create, Read, Update e Delete (CRUD). Por fim, os dados são armazenados em um banco NoSQL DynamoDB usando princípios de Single Table Design, para explorar a modelagem de dados a fundo.
+
+Com isso, o projeto existe para provar domínio em três frentes que qualquer entrevistador técnico de Cloud vai perguntar sobre: **autenticação e autorização**, **compute stateless com Lambda**, e **modelagem de dados NoSQL**.
+
 ## Visão geral
 
-Uma API REST serverless e segura para um aplicativo de tarefas (to-do list), onde usuários se cadastram, autenticam e gerenciam suas próprias tarefas. Com isolamento de dados garantido no nível da arquitetura, não apenas na lógica de negócio.
-
-O objetivo deste projeto não foi só "conectar serviços da AWS", mas demonstrar domínio de três pilares: **autenticação e autorização**, **compute stateless (serverless)** e **modelagem de dados NoSQL**.
+Uma API REST serverless e segura para um aplicativo de tarefas (to-do list), onde usuários se cadastram, autenticam e gerenciam suas próprias tarefas com isolamento de dados garantido no nível da arquitetura, não apenas na lógica de negócio.
 
 ## Arquitetura
 
