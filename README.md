@@ -12,7 +12,7 @@
 
 | # | Projeto | Serviços | Status | Origem |
 |---|---|---|---|---|
-| 01 | [Serverless To-Do API](./01-serverless-todo-api) | API REST serverless e segura (Cognito + Lambda Authorizer + API Gateway + Lambda CRUD em Python + DynamoDB Single Table Design) para gerenciamento de tarefas com isolamento de dados por usuário | Terraform, API Gateway, Cognito, Lambda, DynamoDB |
+| 01 | [Serverless To-Do API](./01-serverless-todo-api) | API REST serverless e segura (Cognito + Lambda Authorizer + API Gateway + Lambda CRUD em Python + DynamoDB Single Table Design) para gerenciamento de tarefas com isolamento de dados por usuário | Terraform, API Gateway, Cognito, Lambda, DynamoDB | Iniciativa própria |
 
 > Novos projetos serão adicionados conforme o avanço nos estudos.
 
