@@ -1,4 +1,4 @@
-# Serverless To-Do API — AWS
+# Serverless To-Do API - AWS
 
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)
@@ -8,9 +8,9 @@
 
 ## Visão geral
 
-Uma API REST serverless e segura para um aplicativo de tarefas (to-do list), onde usuários se cadastram, autenticam e gerenciam suas próprias tarefas — com isolamento de dados garantido no nível da arquitetura, não apenas na lógica de negócio.
+Uma API REST serverless e segura para um aplicativo de tarefas (to-do list), onde usuários se cadastram, autenticam e gerenciam suas próprias tarefas. Com isolamento de dados garantido no nível da arquitetura, não apenas na lógica de negócio.
 
-O objetivo deste projeto não foi só "conectar serviços da AWS", mas demonstrar domínio de três pilares que qualquer entrevistador técnico de Cloud/DevOps vai perguntar sobre: **autenticação e autorização**, **compute stateless (serverless)** e **modelagem de dados NoSQL**.
+O objetivo deste projeto não foi só "conectar serviços da AWS", mas demonstrar domínio de três pilares: **autenticação e autorização**, **compute stateless (serverless)** e **modelagem de dados NoSQL**.
 
 ## Arquitetura
 
@@ -46,31 +46,31 @@ O objetivo deste projeto não foi só "conectar serviços da AWS", mas demonstra
                           └───────────────────┘
 ```
 
-## Por que esses serviços — e não outros
+## Por que esses serviços e não outros?!
 
-Essa é a parte que mais importa deste README. Qualquer um consegue seguir um tutorial e ligar serviços; a diferença está em saber justificar cada escolha e seus trade-offs.
+Essa é a parte que mais importa deste README. A diferença está em saber justificar cada escolha e seus trade-offs.
 
-### API Gateway — HTTP API, não REST API
+### API Gateway - HTTP API, não REST API
 
 Optei pelo **HTTP API** (`aws_apigatewayv2_api`) em vez do REST API (v1) por dois motivos práticos: custo (**$1,00 por milhão de requisições** contra **$3,50** do REST API) e simplicidade de configuração para autenticação via JWT/Lambda Authorizer.
 
-**Trade-off consciente:** o AWS WAF não se conecta diretamente a HTTP APIs — só a REST APIs, ALB, CloudFront e AppSync. Isso significa que esta API não tem uma camada de WAF na frente hoje. Para um ambiente de produção real, a evolução natural seria migrar para REST API (aceitando o custo maior) ou colocar CloudFront na frente do HTTP API (herdando WAF por ali). Para o escopo deste projeto, o custo-benefício do HTTP API venceu — e documentar essa decisão é mais valioso do que fingir que a arquitetura é "perfeita".
+**Trade-off consciente:** o AWS WAF não se conecta diretamente a HTTP APIs, só a REST APIs, ALB, CloudFront e AppSync. Isso significa que esta API não tem uma camada de WAF na frente hoje. Para um ambiente de produção real, a evolução natural seria migrar para REST API (aceitando o custo maior) ou colocar CloudFront na frente do HTTP API (herdando WAF por ali). Para o escopo deste projeto, o custo-benefício do HTTP API venceu e documentar essa decisão é mais valioso do que fingir que a arquitetura é "perfeita".
 
-### Cognito — gerenciamento de identidade, não autenticação própria
+### Cognito - gerenciamento de identidade, não autenticação própria
 
 Não construí um sistema de login/senha próprio (hash de senha, tabela de usuários, recuperação de senha, etc.) porque isso é **exatamente o tipo de problema que já foi resolvido, testado e endurecido por anos** por um serviço gerenciado. Reinventar isso adicionaria risco de segurança sem agregar nada ao propósito do projeto, que é mostrar como *integrar* identidade a uma API, não como *construir* um provedor de identidade do zero.
 
-### Lambda Authorizer customizado — não o Cognito Authorizer nativo do API Gateway
+### Lambda Authorizer customizado - não o Cognito Authorizer nativo do API Gateway
 
 Aqui existia um caminho mais fácil: o API Gateway tem um **Cognito JWT Authorizer nativo**, que valida o token sem nenhuma linha de código. Eu optei deliberadamente por escrever um **Lambda Authorizer customizado** em vez disso.
 
-Motivo: o Cognito Authorizer nativo esconde todo o processo de validação — você não vê o que está acontecendo. Escrever o Authorizer manualmente (buscar as chaves públicas do Cognito via JWKS, verificar assinatura RSA, checar expiração e audience do token, montar a IAM Policy de retorno) força entender e conseguir explicar exatamente **como** um JWT é validado — não só que "funciona". Esse é o tipo de profundidade que aparece em conversa técnica de entrevista.
+Motivo: o Cognito Authorizer nativo esconde todo o processo de validação, você não vê o que está acontecendo. Escrever o Authorizer manualmente (buscar as chaves públicas do Cognito via JWKS, verificar assinatura RSA, checar expiração e audience do token, montar a IAM Policy de retorno) força entender e conseguir explicar exatamente **como** um JWT é validado, não só que "funciona".
 
-### Lambda + Python — compute stateless, sem servidor para gerenciar
+### Lambda + Python - compute stateless, sem servidor para gerenciar
 
-Cada operação do CRUD é uma função Lambda separada (não uma função monolítica com `if/else` de rota) para manter responsabilidade única por função — facilita leitura, teste e ajuste de permissões IAM específicas por operação. Python foi escolhido por ser a linguagem mais comum em vagas de Cloud/DevOps júnior no mercado atual, e por ter suporte nativo e maduro ao SDK da AWS (`boto3`).
+Cada operação do CRUD é uma função Lambda separada (não uma função monolítica com `if/else` de rota) para manter responsabilidade única por função, facilita leitura, teste e ajuste de permissões IAM específicas por operação. Python foi escolhido por ser a linguagem mais comum em vagas de Cloud/DevOps júnior no mercado atual, e por ter suporte nativo e maduro ao SDK da AWS (`boto3`).
 
-### DynamoDB com Single Table Design — não RDS, não múltiplas tabelas
+### DynamoDB com Single Table Design - não RDS, não múltiplas tabelas
 
 Três decisões aqui, cada uma com motivo diferente:
 
@@ -89,19 +89,19 @@ Três decisões aqui, cada uma com motivo diferente:
 
 Uma única `Query` com `PK = USER#<username>` retorna o perfil e todas as tarefas daquele usuário — sem scan, sem join, sem tabela separada.
 
-## Segurança — o que existe e o que falta
+## Segurança - o que existe e o que falta
 
 O que a arquitetura já garante:
 
 - Autenticação via Cognito (sem senha em texto puro, sem sistema de login próprio)
 - Autorização por token JWT com **verificação criptográfica de assinatura** (não apenas decodificação)
-- Isolamento de dados por usuário: o `username` é extraído do claim do token no Authorizer, nunca do corpo da requisição — impossível um usuário manipular o payload para acessar dado de outro
+- Isolamento de dados por usuário: o `username` é extraído do claim do token no Authorizer, nunca do corpo da requisição, impossível um usuário manipular o payload para acessar dado de outro
 - IAM Role com *least privilege*: a policy do DynamoDB está restrita ao ARN exato da tabela e às 5 ações necessárias, sem uso de wildcard (`dynamodb:*`)
 - Alerta de custo (AWS Budgets + SNS) configurado via IaC, notificando em 80% e 100% de um teto mensal
 
 O que fica documentado como próximo passo (roadmap de hardening), em vez de fingido como resolvido:
 
-- Sem WAF na frente da API (limitação do HTTP API — ver seção acima)
+- Sem WAF na frente da API (limitação do HTTP API - ver seção acima)
 - Sem throttling por rota configurado explicitamente
 - Sem access logging no API Gateway (hoje só há logs de execução das Lambdas via CloudWatch)
 - Cognito com MFA opcional, não obrigatório
@@ -109,7 +109,7 @@ O que fica documentado como próximo passo (roadmap de hardening), em vez de fin
 
 ## Infraestrutura como código
 
-Todo o ambiente é provisionado via Terraform — nenhum recurso foi criado manualmente pelo console. Isso garante que o ambiente é reprodutível e versionável.
+Todo o ambiente é provisionado via Terraform, nenhum recurso foi criado manualmente pelo console. Isso garante que o ambiente é reprodutível e versionável.
 
 ```bash
 terraform init
@@ -135,9 +135,9 @@ A API foi validada ponta a ponta com os 4 métodos do CRUD, incluindo o caso neg
 
 ## Lições aprendidas
 
-- **Diferença entre autorização nativa e customizada tem consequências reais no formato do evento.** Migrar de Cognito JWT Authorizer nativo para Lambda Authorizer customizado exige trocar `event["requestContext"]["authorizer"]["jwt"]["claims"]` por `event["requestContext"]["authorizer"]["lambda"][...]` — um detalhe fácil de esquecer em algum dos Lambdas do CRUD, e que gera erro 500 silencioso (sem log, porque a Lambda de negócio sequer chega a rodar corretamente) até ser identificado via CloudWatch Logs.
+- **Diferença entre autorização nativa e customizada tem consequências reais no formato do evento.** Migrar de Cognito JWT Authorizer nativo para Lambda Authorizer customizado exige trocar `event["requestContext"]["authorizer"]["jwt"]["claims"]` por `event["requestContext"]["authorizer"]["lambda"][...]`, um detalhe fácil de esquecer em algum dos Lambdas do CRUD, e que gera erro 500 silencioso (sem log, porque a Lambda de negócio sequer chega a rodar corretamente) até ser identificado via CloudWatch Logs.
 - **Cache de Authorizer no API Gateway pode mascarar bugs.** Como a política retornada pelo Authorizer é escopada por rota (`event["routeArn"]`), o cache padrão de 300 segundos pode reutilizar uma política válida apenas para a primeira rota chamada, retornando `Forbidden` em chamadas subsequentes com o mesmo token. Correção: usar wildcard (`/*/*`) no `Resource` da policy para cobrir todas as rotas da API sob o mesmo cache.
-- **`aws_lambda_permission` é fácil de esquecer ao adicionar um novo recurso Lambda.** Um Authorizer sem a permissão explícita do API Gateway para invocá-lo gera erro genérico (500) sem nenhum log — porque a Lambda nunca chega a ser executada. `terraform state list` foi a ferramenta mais rápida para confirmar se o recurso realmente existia no state antes de investigar em outro lugar.
+- **`aws_lambda_permission` é fácil de esquecer ao adicionar um novo recurso Lambda.** Um Authorizer sem a permissão explícita do API Gateway para invocá-lo gera erro genérico (500) sem nenhum log, porque a Lambda nunca chega a ser executada. `terraform state list` foi a ferramenta mais rápida para confirmar se o recurso realmente existia no state antes de investigar em outro lugar.
 - **`--only-binary=:all:` evita problemas de compilação cruzada.** Empacotar dependências com extensões nativas (como `python-jose[cryptography]`) direto no WSL/Ubuntu pode gerar binários incompatíveis com o runtime Amazon Linux da Lambda; baixar o wheel pré-compilado para a plataforma correta (`manylinux2014_x86_64`) evita esse problema por completo.
 
 ---
