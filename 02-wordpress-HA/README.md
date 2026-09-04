@@ -35,8 +35,8 @@ Application Load Balancer (PublicSubnet1 + PublicSubnet2)
     │
     ▼
 Aurora MySQL Cluster
-    ├── Writer Instance (AZ 1 — DatabaseSubnet1)
-    └── Reader Instance (AZ 2 — DatabaseSubnet2)
+    ├── Writer Instance (AZ 1 - DatabaseSubnet1)
+    └── Reader Instance (AZ 2 - DatabaseSubnet2)
 ```
 
 ## Por que esses serviços e não outros?
@@ -110,9 +110,9 @@ A política de **Target Tracking** ajusta o número de instâncias automaticamen
 
 **EFS precisa de targets de montagem em cada AZ onde será usado.** Criar o EFS sem configurar targets nas AZs das subnets de aplicação resulta em erro de montagem nas instâncias. O target de montagem é o endpoint NFS dentro da AZ, sem ele, a instância não tem para onde apontar o comando de mount.
 
-**O health check path do ALB precisa retornar 200 para a instância ser considerada saudável.** Configurar `/wp-login.php` como path de health check foi intencional: se o WordPress não está respondendo (banco de dados inacessível, processo PHP travado, configuração corrompida), essa página retorna erro e a instância é removida do pool automaticamente. Um health check em `/` seria menos preciso — pode retornar 200 mesmo quando a aplicação está parcialmente quebrada.
+**O health check path do ALB precisa retornar 200 para a instância ser considerada saudável.** Configurar `/wp-login.php` como path de health check foi intencional: se o WordPress não está respondendo (banco de dados inacessível, processo PHP travado, configuração corrompida), essa página retorna erro e a instância é removida do pool automaticamente. Um health check em `/` seria menos precis, pode retornar 200 mesmo quando a aplicação está parcialmente quebrada.
 
-**Parâmetros errados no launch template não aparecem como erro imediato.** O DNS do ALB passado incorretamente (com `http://` na frente ou com barra no final) não causa falha no deploy da stack — causa falha no carregamento de CSS e JavaScript do WordPress depois que tudo está rodando. O erro só aparece no browser, não nos logs do CloudFormation.
+**Parâmetros errados no launch template não aparecem como erro imediato.** O DNS do ALB passado incorretamente (com `http://` na frente ou com barra no final) não causa falha no deploy da stack, causa falha no carregamento de CSS e JavaScript do WordPress depois que tudo está rodando. O erro só aparece no browser, não nos logs do CloudFormation.
 
 ---
 
