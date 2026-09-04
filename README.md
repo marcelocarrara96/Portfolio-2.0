@@ -13,6 +13,7 @@
 | # | Projeto | Serviços | Status | Origem |
 |---|---|---|---|---|
 | 01 | [Serverless To-Do API](./01-serverless-todo-api) | API REST serverless e segura (Cognito + Lambda Authorizer + API Gateway + Lambda CRUD em Python + DynamoDB Single Table Design) para gerenciamento de tarefas com isolamento de dados por usuário | Terraform, API Gateway, Cognito, Lambda, DynamoDB | Iniciativa própria |
+| 02 | [WordPress de Alta Disponibilidade na AWS](./02-wordpress-HA) | Aplicação WordPress *production-ready* distribuída em múltiplas AZs, com Auto Scaling, armazenamento compartilhado (EFS) e banco de dados gerenciado e replicado (Aurora MySQL) | CloudFormation, ALB, EC2, Auto Scaling, EFS, Aurora MySQL | Iniciativa própria |
 
 > Novos projetos serão adicionados conforme o avanço nos estudos.
 
@@ -35,14 +36,14 @@
 
 <div align="center">
 
-**Marcelo Carrara** · AWS Certified Cloud Practitioner | Cloud Analyst · Paraná, Brazil
+**Marcelo Carrara** · AWS Certified Cloud Practitioner | Cloud Analyst · São Paulo, Brazil
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/marcelo-carrara-tech/)
 [![Email](https://img.shields.io/badge/Email-marcelo.carrara96%40hotmail.com-D14836?style=flat&logo=microsoftoutlook&logoColor=white)](mailto:marcelo.carrara96@hotmail.com)
 
 </div>
 
-*Atualizado em Julho 2026*
+*Atualizado em Setembro 2026*
 
 ## Licença
 
