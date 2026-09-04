@@ -31,6 +31,13 @@
 ![IAM](https://img.shields.io/badge/IAM-DD344C?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![CloudWatch](https://img.shields.io/badge/CloudWatch-FF4F8B?style=for-the-badge&logo=amazoncloudwatch&logoColor=white)
 ![AWS Budgets](https://img.shields.io/badge/AWS%20Budgets-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![CloudFormation](https://img.shields.io/badge/AWS_CloudFormation-FF9900?style=for-the-badge&logo=amazoncloudformation&logoColor=white)
+![WordPress](https://img.shields.io/badge/WordPress-21759B?style=for-the-badge&logo=wordpress&logoColor=white)
+![Amazon EC2](https://img.shields.io/badge/Amazon_EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white)
+![Auto Scaling](https://img.shields.io/badge/AWS_Auto_Scaling-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Amazon EFS](https://img.shields.io/badge/Amazon_EFS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Amazon Aurora](https://img.shields.io/badge/Amazon_Aurora-C70039?style=for-the-badge&logo=amazonaws&logoColor=white)
+![ALB](https://img.shields.io/badge/AWS_ALB-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 
 ---
 
